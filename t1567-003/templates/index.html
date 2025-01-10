@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Home - T1567.003{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Welcome to T1567.003</h1>
+        <p class="lead">Share your code snippets and text easily.</p>
+        <a href="{{ url_for('new_paste') }}" class="btn btn-primary mb-4">Create New Paste</a>
+        
+        {% if recent_pastes %}
+            <h2>Recent Pastes</h2>
+            <div class="list-group">
+                {% for paste in recent_pastes %}
+                    <a href="{{ url_for('view_paste', paste_id=paste.id) }}" 
+                       class="list-group-item list-group-item-action">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="mb-1">{{ paste.title }}</h5>
+                            <small>{{ paste.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+                        </div>
+                        <p class="mb-1">Language: {{ paste.language }}</p>
+                    </a>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No pastes yet. Be the first to create one!</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

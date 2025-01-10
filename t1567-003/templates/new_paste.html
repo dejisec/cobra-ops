@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}New Paste - T1567.003{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12">
+        <h1>Create New Paste</h1>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" 
+                       placeholder="Enter paste title">
+            </div>
+            
+            <div class="mb-3">
+                <label for="content" class="form-label">Content</label>
+                <textarea class="form-control" id="content" name="content" rows="10" 
+                          required></textarea>
+            </div>
+            
+            <div class="mb-3">
+                <label for="language" class="form-label">Language</label>
+                <select class="form-select" id="language" name="language">
+                    {% for lang in supported_languages %}
+                        <option value="{{ lang }}">{{ lang|title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="mb-3">
+                <label for="expiry" class="form-label">Expiration</label>
+                <select class="form-select" id="expiry" name="expiry">
+                    {% for key in expiry_options %}
+                        <option value="{{ key }}">
+                            {% if key == "1h" %}1 Hour
+                            {% elif key == "1d" %}1 Day
+                            {% elif key == "1w" %}1 Week
+                            {% else %}Never
+                            {% endif %}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="is_markdown" 
+                       name="is_markdown">
+                <label class="form-check-label" for="is_markdown">
+                    Parse as Markdown
+                </label>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Create Paste</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
