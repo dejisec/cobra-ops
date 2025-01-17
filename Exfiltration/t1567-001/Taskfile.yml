@@ -1,0 +1,48 @@
+version: '3'
+
+vars:
+  BINARY_NAME: t1567-001
+  BUILD_DIR: build
+
+tasks:
+  clean:
+    desc: Clean build directory
+    cmds:
+      - rm -rf {{.BUILD_DIR}}
+      - mkdir -p {{.BUILD_DIR}}
+
+  build:
+    desc: Build for current platform
+    cmds:
+      - go build -o {{.BUILD_DIR}}/{{.BINARY_NAME}} main.go
+
+  build-linux:
+    desc: Build for Linux
+    deps: [clean]
+    cmds:
+      - GOOS=linux GOARCH=amd64 go build -o {{.BUILD_DIR}}/{{.BINARY_NAME}}-linux-amd64 main.go
+      - GOOS=linux GOARCH=arm64 go build -o {{.BUILD_DIR}}/{{.BINARY_NAME}}-linux-arm64 main.go
+
+  build-darwin:
+    desc: Build for macOS
+    deps: [clean]
+    cmds:
+      - GOOS=darwin GOARCH=amd64 go build -o {{.BUILD_DIR}}/{{.BINARY_NAME}}-darwin-amd64 main.go
+      - GOOS=darwin GOARCH=arm64 go build -o {{.BUILD_DIR}}/{{.BINARY_NAME}}-darwin-arm64 main.go
+
+  build-windows:
+    desc: Build for Windows
+    deps: [clean]
+    cmds:
+      - GOOS=windows GOARCH=amd64 go build -o {{.BUILD_DIR}}/{{.BINARY_NAME}}-windows-amd64.exe main.go
+      - GOOS=windows GOARCH=386 go build -o {{.BUILD_DIR}}/{{.BINARY_NAME}}-windows-386.exe main.go
+
+  default:
+    desc: Default task
+    cmds:
+      - task: build
+
+  install-deps:
+    desc: Install project dependencies
+    cmds:
+      - go mod tidy

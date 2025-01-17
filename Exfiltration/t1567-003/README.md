@@ -13,7 +13,7 @@ Operators can use the implementation in the project to assess the effectiveness 
 1. Install the dependencies:
 
     ```sh
-    python3 -m ven .venv
+    python3 -m venv .venv
     source .venv/bin/activate
     pip install -r requirements.txt
     ```

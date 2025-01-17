@@ -7,6 +7,19 @@ Implementation of [T1567.004](https://attack.mitre.org/techniques/T1567/004/) - 
 - Supports Discord webhooks for message and file uploads
 - Supports Slack bot integration for message and file uploads
 
+## Prerequisites
+
+- [Rust](https://www.rust-lang.org/tools/install)
+- Discord webhook URL if using Discord
+- Slack bot user OAuth token and channel ID if using Slack
+
+## Setup
+
+- Update the following constants in `src/main.rs`:
+  - `DISCORD_WEBHOOK_URL`: Your Discord webhook URL
+  - `SLACK_BOT_TOKEN`: Your Slack bot user OAuth token
+  - `SLACK_CHANNEL_ID`: The target Slack channel ID
+
 ## Usage
 
 1. Build the binary:
@@ -31,19 +44,3 @@ Implementation of [T1567.004](https://attack.mitre.org/techniques/T1567/004/) - 
     # Upload a file with a message
     ./t1567-004 -f /path/to/file -m "File description" -w discord
     ```
-
-## Configuration
-
-Before using the tool, update the following constants in `src/main.rs`:
-
-- `DISCORD_WEBHOOK_URL`: Your Discord webhook URL
-- `SLACK_BOT_TOKEN`: Your Slack bot user OAuth token
-- `SLACK_CHANNEL_ID`: The target Slack channel ID
-
-## Cleanup
-
-Remove build artifacts:
-
-```sh
-make clean
-```

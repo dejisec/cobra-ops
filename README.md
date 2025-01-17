@@ -4,8 +4,11 @@ This repository contains implementations of various MITRE ATT&CK Tactics, Techni
 
 ## Implemented TTPs
 
-- [T1567.003 - Exfiltration Over Web Service: Exfiltration to Text Storage Sites](t1567-003)
-- [T1567.004 - Exfiltration Over Web Service: Exfiltration Over Webhook](t1567-004)
+### Exfiltration
+
+- [T1567.001 - Exfiltration Over Web Service: Exfiltration to Code Repository](Exfiltration/t1567-001)
+- [T1567.003 - Exfiltration Over Web Service: Exfiltration to Text Storage Sites](Exfiltration/t1567-003)
+- [T1567.004 - Exfiltration Over Web Service: Exfiltration Over Webhook](Exfiltration/t1567-004)
 
 ## Future Implementations
 
