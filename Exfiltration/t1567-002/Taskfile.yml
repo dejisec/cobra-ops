@@ -1,0 +1,34 @@
+version: '3'
+
+vars:
+  BUILD_DIR: build
+  PUBLISH_DIR: publish
+  CONFIGURATION: '{{default "Release" .CONFIGURATION}}'
+
+tasks:
+  clean:
+    desc: Clean build and publish directories
+    cmds:
+      - rm -rf {{.BUILD_DIR}} {{.PUBLISH_DIR}}
+      - mkdir -p {{.BUILD_DIR}} {{.PUBLISH_DIR}}
+
+  build:
+    desc: Build for current platform
+    deps: [clean]
+    cmds:
+      - dotnet build ./t1567-002.csproj --configuration {{.CONFIGURATION}} --output {{.BUILD_DIR}}
+
+  publish:
+    desc: Publish the application for a specific platform (i.e. win-x64, linux-x64, osx-x64)
+    cmds:
+      - >
+        dotnet publish ./t1567-002.csproj 
+        --configuration {{.CONFIGURATION}}
+        --runtime {{.RUNTIME}}
+        --output {{.PUBLISH_DIR}}/{{.RUNTIME}}
+        --self-contained {{.SELF_CONTAINED}}
+        -p:PublishSingleFile=true
+        -p:IncludeNativeLibrariesForSelfExtract=true
+    vars:
+      RUNTIME: '{{default "win-x64" .RUNTIME}}'
+      SELF_CONTAINED: '{{default "true" .SELF_CONTAINED}}'

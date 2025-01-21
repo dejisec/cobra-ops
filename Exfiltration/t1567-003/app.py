@@ -116,6 +116,13 @@ def cleanup_expired_pastes():
             logger.error(f"Error during cleanup: {e}")
 
 
+def init_db():
+    """Initialize the database and create all tables."""
+    with app.app_context():
+        db.create_all()
+
+init_db()
+
 @app.route("/")
 def index():
     """Display the home page with recent pastes."""
@@ -229,6 +236,4 @@ def internal_error(error):
 
 
 if __name__ == "__main__":
-    with app.app_context():
-        db.create_all()
     app.run(debug=True)
